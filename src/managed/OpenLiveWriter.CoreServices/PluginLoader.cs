@@ -42,14 +42,11 @@ namespace OpenLiveWriter.CoreServices
         }
         public void LoadPluginsFromDirectory(string directory, bool showErrors)
         {
-            string[] filenames = Directory.GetFiles(directory);
+            string[] filenames = Directory.GetFiles(directory, "*.dll");
             foreach (string filename in filenames)
             {
-                if (Path.GetExtension(filename).ToUpperInvariant() == ".DLL")
-                {
-                    string assemblyPath = Path.Combine(directory, filename);
-                    LoadPluginsFromAssemblyPath(assemblyPath, showErrors);
-                }
+                string assemblyPath = Path.Combine(directory, Path.GetFileName(filename));
+                LoadPluginsFromAssemblyPath(assemblyPath, showErrors);
             }
         }
 
